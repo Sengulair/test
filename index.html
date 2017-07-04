@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script>//Строка с загавной буквы
+	var string = prompt("Введите строку для преобразования ее с заглавной буквы");
+	function firstCharToUpperCase(string) {
+		return string[0].toUpperCase() + string.slice(1);
+	}
+	alert(firstCharToUpperCase(string));
+</script>
+<script>//Проверка на подстроку
+	var string = prompt("Введите строку");
+	var substring = prompt("Введите подстроку");
+	function checkForSubstring(string,substring) {
+		var pos = 0;
+		var count = 0;
+		while (true) {
+			var foundPos = string.indexOf(substring, pos);
+ 			if (foundPos == -1) break;
+ 			count++;
+ 			pos = foundPos + 1;
+		}
+		return alert(count);
+	}
+	checkForSubstring(string,substring);
+</script>
+<script>//Обрезание строки ...
+	var string = prompt("Введите строку для обрезания");
+	var maxLength = 6;
+	function splitString(string,maxLength) {
+		var len = string.length;
+		if (len > maxLength) {
+			string = string.slice(0,-(len - maxLength) - 3) + "...";
+		}
+		return string;
+	}
+	alert(splitString(string,maxLength));
+</script>
+<script>//Рандомное число [min;max)
+	var min = 0;
+	var max = 100;
+	function randomNum(min,max) {
+		return Math.random() * (max - min) + min;
+	}
+	alert("Случайное число в диапазоне от " + min + " до " + max + "\n" + randomNum(min,max));
+</script>
+<script>//N число из последовательности Фибонначи
+	var n = prompt("Введите какое число из последовательности Фибонначи должна вернуть функция");
+	function numNFibonnachi(n) {
+		if (n <= 0) return "Введите правильное число";
+		var x = 1, y = 1, z;
+		for (var i = 1; i < n; i++) {
+			z = y;
+			y += x;
+			x = z;
+		}
+		return x;
+	}
+	alert(numNFibonnachi(n));
+</script>
+<script>//переворот строки
+	var string = prompt("Введите строку для переворота");
+	function changeDirection(string) {
+		var result = "";
+		for (var i = string.length - 1; i >= 0; i--) {
+			result += string[i];
+		}
+		return result;
+	}
+	alert(changeDirection(string));
+</script>
+<script>//поиск наибольшего слова
+	var sentence = prompt("Введите предложение для поиска наибольшего слова");
+	function maxLengthWordInSentence(sentence) {
+		var posWord = 0;
+		var posSpace;
+		var curWord;
+		var maxLength = 0;
+		var maxWord;
+		var oneWord = true;
+		for (var i = 0; i < sentence.length; i++) {
+			if (sentence[i] == " "){
+				oneWord = false;
+				posSpace = i;
+				curWord = sentence.slice(posWord,posSpace);
+				if (curWord.length > maxLength) {
+					maxLength = curWord.length;
+					maxWord = curWord;
+				}
+				posWord = posSpace + 1;
+			}
+		}
+		if(oneWord) maxWord = sentence;
+		curWord = sentence.slice(posWord,sentence.length);
+		if (curWord.length > maxLength) {
+			maxLength = curWord.length;
+			maxWord = curWord;
+		}
+		return maxWord;
+	}
+	alert(maxLengthWordInSentence(sentence));
+</script>
+<script>//Нахождение факториала
+	var n = prompt("Введите число для нахождения факториала");
+	function factorial(n) {
+		if (n < 0) return "Введите положительное число";
+		return n <= 1 ? 1 : (n * factorial(n-1));
+	}
+	alert(factorial(n));
+</script>
+<script>//Телефонный справочник
+	var list = [];
+	function User(name, surname, tel) {
+		this.name = name;
+		this.surname = surname;
+		this.tel = tel;
+		this.addUser = addUser;
+		this.findByTel = findByTel;
+		this.updateUserByTel = updateUserByTel;
+		this.deleteUser = deleteUser;
+	}
+	for(;;){
+var action = prompt("Выберите действие с телефонной книгой:\n1)Добавить пользователя.\n2)Обновить пользователя.\n3)Найти индекс пользователя в списке.\n4)Удалить пользователя.\n5)Вывести список на экран");
+switch (action) {
+	case '1':
+    	addUser();
+    	break;
+	case '2':
+		var tel = prompt("Введите телефон пользователя");
+    	updateUserByTel(tel);
+    	break;
+	case '3':
+		var tel = prompt("Введите телефон пользователя");
+    	alert(findByTel(tel));
+    	break;
+	case '4':
+		var tel = prompt("Введите телефон пользователя");
+    	deleteUser(tel);
+    	break;
+	case '5':
+    	showList();
+    	break;
+  	default:
+    	alert("Введите правильную цифру!");
+}
+	function addUser() {
+		var name = prompt("Введите имя пользователя");
+		var surname = prompt("Введите фамилию пользователя");
+		var tel = prompt("Введите телефон пользователя");
+		if (findByTel(tel) === false) {
+			list.push(new User(name, surname, tel));
+		}
+	}
+	function findByTel(tel) {
+		for(var i = 0; i < list.length; i++) {
+			if(tel === list[i].tel) {
+				return i;
+			}
+		}
+		return false;
+	}
+	function updateUserByTel(tel) {
+		var indexTel = findByTel(tel);
+		if (indexTel !== false) {
+			var name = prompt("Введите имя пользователя");
+			var surname = prompt("Введите фамилию пользователя");
+			var tel = list[indexTel].tel;
+			list[indexTel] = new User(name, surname, tel);
+		}
+		else alert("Такого номера нету");
+	}
+	function deleteUser(tel) {
+		var indexTel = findByTel(tel);
+		if(indexTel !== false) {
+			list.splice(indexTel,1);
+		}
+		else{
+			alert("Такого номера нету");
+		}
+	}
+	function showList() {
+		var result = "";
+		for(var i = 0; i < list.length; i++){
+			result += list[i].name + "    " + list[i].surname + "    " + list[i].tel + "\n";
+		}
+	alert(result);
+	}
+}
+</script>
+</body>
+</html>
