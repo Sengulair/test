@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+<script>
+	function sum() {
+		var sum = 0;
+		for (var i = 0; i < arguments.length; i++) {
+			sum += arguments[i];
+		}
+		return sum;
+	}
+</script>
+<script>
+	function myConcat(a,...b) {
+		return b.join(a);
+	}
+</script>
+<script>
+	function sum(a){
+		return function(b) {
+			return parseInt(a) + parseInt(b); 
+		}
+	}
+</script>
+<script>
+	var arr = [1, 2, 3, 4, 5, 6, 7];
+	function filter(arr, func) {
+		var result = [];
+		for (var i = 0; i < arr.length; i++) {
+		    var val = arr[i];
+		    if (func(val)) {
+		        result.push(val);
+		    }
+  		}
+  		return result;
+  	}
+	function inBetween(a, b) {
+		return function(x) {
+			return x >= a && x <= b;
+		}
+	}
+	function inArray(arr) {
+		return function(x) {
+			return arr.indexOf(x) != -1;
+		}
+	}
+	alert(filter(arr,function(a) { return a % 2 == 0 }));
+	alert(filter(arr,inBetween(3,6)));
+	alert(filter(arr,inArray([1,2,10])));
+	/*
+	function filter(arr,func) {
+		arr.filter(func(num));
+	}
+	function inBetween(a,b) {
+		return function(num) {
+			return num >= a && num <= b;
+		}
+	}
+	filter(arr,inBetween(3,6));*/
+</script>
+<script>
+	function Summator() {
+		this.sum = function sum(a,b) {
+			return a + b;
+		}
+		this.run = function run() {
+			a = prompt("Введите a");
+			b = prompt("Введите b");
+			alert(this.sum(parseInt(a),parseInt(b)));
+		}
+	}
+	new Summator().run();
+</script>
+</body>
+</html>
