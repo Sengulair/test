@@ -27,40 +27,22 @@
 	}
 </script>
 <script>
-	var arr = [1, 2, 3, 4, 5, 6, 7];
-	function filter(arr, func) {
-		var result = [];
-		for (var i = 0; i < arr.length; i++) {
-		    var val = arr[i];
-		    if (func(val)) {
-		        result.push(val);
-		    }
-  		}
-  		return result;
-  	}
-	function inBetween(a, b) {
-		return function(x) {
-			return x >= a && x <= b;
-		}
-	}
-	function inArray(arr) {
-		return function(x) {
-			return arr.indexOf(x) != -1;
-		}
-	}
-	alert(filter(arr,function(a) { return a % 2 == 0 }));
-	alert(filter(arr,inBetween(3,6)));
-	alert(filter(arr,inArray([1,2,10])));
-	/*
 	function filter(arr,func) {
-		arr.filter(func(num));
+		return arr.filter(func);
 	}
 	function inBetween(a,b) {
 		return function(num) {
 			return num >= a && num <= b;
 		}
 	}
-	filter(arr,inBetween(3,6));*/
+	function inArray(arr) {
+		return function(num) {
+			return arr.indexOf(num) != -1;
+		}
+	}
+	alert(filter(arr,function(a) { return a % 2 == 0 }));
+	alert(filter(arr,inBetween(3,6)));
+	alert(filter(arr,inArray([1,2,10])));
 </script>
 <script>
 	function Summator() {
